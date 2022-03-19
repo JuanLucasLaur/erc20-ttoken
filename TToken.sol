@@ -49,7 +49,7 @@ contract TToken is ERC20Interface {
      */
     function transfer(address to, uint256 tokens) public override returns (bool success){
         // @dev Make sure that the origin address has enough tokens to send.
-        require(balances[msg.sender] >= tokens);
+        require(balances[msg.sender] >= tokens, "Origin address has not enough tokens to transfer");
 
         balances[to] += tokens;
         balances[msg.sender] -= tokens;
