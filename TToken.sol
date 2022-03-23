@@ -21,7 +21,7 @@ interface ERC20Interface {
 
 /**
  * @title TToken
- * @dev ERC-20 compliant Test Token.
+ * @dev ERC-20 compliant Test Token
  */
 contract TToken is ERC20Interface {
     string public name = "TToken";
@@ -41,7 +41,8 @@ contract TToken is ERC20Interface {
 
     /**
      * @notice Gets the token balance for a given address.
-     * @param tokenOwner Address whose balance we want to find out.
+     * @param tokenOwner Address whose balance we want to find out
+     * @return balance Balance of the given address
      */
     function balanceOf(address tokenOwner) public view override returns (uint256 balance){
         return balances[tokenOwner];
@@ -50,8 +51,9 @@ contract TToken is ERC20Interface {
 
     /**
      * @notice Transfers an amount of tokens to a given address.
-     * @param to Recipient address.
-     * @param tokens Amount of tokens to transfer.
+     * @param to Recipient address
+     * @param tokens Amount of tokens to transfer
+     * @return success True if the function exits without errors
      */
     function transfer(address to, uint256 tokens) public override returns (bool success){
         // @dev Make sure that the origin address has enough tokens to send.
@@ -66,18 +68,20 @@ contract TToken is ERC20Interface {
     }
 
     /**
-     * @notice Returns the allowance for a given account
+     * @notice Returns the allowance for a given account.
      * @param tokenOwner Address that owns the tokens
      * @param spender Address that is allowed to spend tokens in owner's name
+     * @return allowance Allowance from the tokenOwner to the spender
      */
-    function allowance(address tokenOwner, address spender) public view override returns (uint256){
+    function allowance(address tokenOwner, address spender) public view override returns (uint256 allowance){
         return allowed[tokenOwner][spender];
     }
 
     /**
-     * @notice Allow an address to spend a given amount of tokens in the owner's name
+     * @notice Allow an address to spend a given amount of tokens in the owner's name.
      * @param spender Address to be allowed to spend tokens
      * @param tokens Amount of tokens allowed to spend
+     * @return success True if the function exits without errors
      */
     function approve(address spender, uint256 tokens) public override returns (bool success){
         // @dev Make sure that the origin address has enough tokens.
@@ -91,9 +95,10 @@ contract TToken is ERC20Interface {
     }
 
     /**
-     * @notice Transfer tokens from another address' allowance
+     * @notice Transfer tokens from another address' allowance.
      * @param from Address that owns the tokens
      * @param to Address that will receive the tokens
+     * @return success True if the function exits without errors
      */
     function transferFrom(address from, address to, uint256 tokens) public override returns (bool success){
         // @dev Make sure that the receiving address has enough allowance.
