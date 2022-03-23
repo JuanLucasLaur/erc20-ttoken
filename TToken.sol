@@ -55,7 +55,7 @@ contract TToken is ERC20Interface {
      * @param tokens Amount of tokens to transfer
      * @return success True if the function exits without errors
      */
-    function transfer(address to, uint256 tokens) public override returns (bool success){
+    function transfer(address to, uint256 tokens) public virtual override returns (bool success){
         // @dev Make sure that the origin address has enough tokens to send.
         require(balances[msg.sender] >= tokens, "Origin address has not enough tokens to transfer");
 
@@ -71,9 +71,9 @@ contract TToken is ERC20Interface {
      * @notice Returns the allowance for a given account.
      * @param tokenOwner Address that owns the tokens
      * @param spender Address that is allowed to spend tokens in owner's name
-     * @return allowance Allowance from the tokenOwner to the spender
+     * @return allowedAmount Allowance from the tokenOwner to the spender
      */
-    function allowance(address tokenOwner, address spender) public view override returns (uint256 allowance){
+    function allowance(address tokenOwner, address spender) public view override returns (uint256 allowedAmount){
         return allowed[tokenOwner][spender];
     }
 
@@ -100,7 +100,7 @@ contract TToken is ERC20Interface {
      * @param to Address that will receive the tokens
      * @return success True if the function exits without errors
      */
-    function transferFrom(address from, address to, uint256 tokens) public override returns (bool success){
+    function transferFrom(address from, address to, uint256 tokens) public virtual override returns (bool success){
         // @dev Make sure that the receiving address has enough allowance.
         require(allowed[from][to] >= tokens, "Receiving address has not enough allowance");
 

@@ -107,6 +107,37 @@ contract TTokenICO is TToken {
     }
 
     /**
+     * @notice Transfers an amount of tokens to a given address.
+     * @param to Recipient address
+     * @param tokens Amount of tokens to transfer
+     * @return success True if the function exits without errors
+     */
+    function transfer(address to, uint256 tokens) public override returns (bool success){
+        // @dev Make sure that the tokens aren't transferable until one week afther the ICO ends
+        require(block.timestamp > tokenTradeStart, "TTKN will be available for transfers one week after the end of the ICO");
+
+        super.transfer(to, tokens);
+
+        return true;
+    }
+
+    /**
+     * @notice Transfer tokens from another address' allowance.
+     * @param from Address that owns the tokens
+     * @param to Address that will receive the tokens
+     * @return success True if the function exits without errors
+     */
+    function transferFrom(address from, address to, uint256 tokens) public override returns (bool success){
+        // @dev Make sure that the tokens aren't transferable until one week afther the ICO ends
+        require(block.timestamp > tokenTradeStart, "TTKN will be available for transfers one week after the end of the ICO");
+
+        super.transferFrom(from, to, tokens);
+
+        return true;
+    }
+
+
+    /**
      * @notice Invest eth in this contract and get TTKNs in return (1 ETH = 1000 TTKN)
      * @dev Calls the invest() function
      */
