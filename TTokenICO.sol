@@ -136,6 +136,20 @@ contract TTokenICO is TToken {
         return true;
     }
 
+    /**
+     * @notice Burn a given amount of tokens.
+     * @return success True if the function exits without errors
+     */
+    function burn() public returns (bool success) {
+        icoState = getCurrentState();
+
+        /// @dev Only burn the tokens after the ICO is ended
+        require(icoState == State.afterEnd);
+
+        balances[founder] = 0;
+
+        return true;
+    }
 
     /**
      * @notice Invest eth in this contract and get TTKNs in return (1 ETH = 1000 TTKN)
