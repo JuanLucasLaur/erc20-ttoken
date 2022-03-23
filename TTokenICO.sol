@@ -35,7 +35,7 @@ contract TTokenICO is TToken {
      * @dev Restrict a function to be callable only for the admin
      */
     modifier adminOnly() {
-        // @dev Make sure that the origin address is the admin's
+        /// @dev Make sure that the origin address is the admin's
         require(msg.sender == admin);
         _;
     }
@@ -85,13 +85,13 @@ contract TTokenICO is TToken {
     function invest() public payable returns(bool success){
         icoState = getCurrentState();
 
-        // @dev Make sure that the ICO is active
+        /// @dev Make sure that the ICO is active
         require(icoState == State.running, "ICO isn't active");
 
-        // @dev Make sure that the investment is within the allowed range
+        /// @dev Make sure that the investment is within the allowed range
         require(msg.value >= minimumInvestment && msg.value <= maximumInvestment, "Investment out of range");
 
-        // @dev Make sure that the investment doesn't exceed the cap
+        /// @dev Make sure that the investment doesn't exceed the cap
         require((raisedAmount + msg.value) <= hardCap, "Investment exceeds the ICO's cap");
 
         raisedAmount += msg.value;
@@ -113,7 +113,7 @@ contract TTokenICO is TToken {
      * @return success True if the function exits without errors
      */
     function transfer(address to, uint256 tokens) public override returns (bool success){
-        // @dev Make sure that the tokens aren't transferable until one week afther the ICO ends
+        /// @dev Make sure that the tokens aren't transferable until one week afther the ICO ends
         require(block.timestamp > tokenTradeStart, "TTKN will be available for transfers one week after the end of the ICO");
 
         super.transfer(to, tokens);
@@ -128,7 +128,7 @@ contract TTokenICO is TToken {
      * @return success True if the function exits without errors
      */
     function transferFrom(address from, address to, uint256 tokens) public override returns (bool success){
-        // @dev Make sure that the tokens aren't transferable until one week afther the ICO ends
+        /// @dev Make sure that the tokens aren't transferable until one week afther the ICO ends
         require(block.timestamp > tokenTradeStart, "TTKN will be available for transfers one week after the end of the ICO");
 
         super.transferFrom(from, to, tokens);
